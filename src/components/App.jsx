@@ -98,7 +98,7 @@ class App extends Component {
 
   render() {
       const {images}= this.state;
-      console.log(images)
+     
 
     return (
           <>
