@@ -1,28 +1,21 @@
 
-import { Component } from 'react';
 import { createPortal } from 'react-dom';
 
-import { Container, Overlay } from './Modal.styled';
+import { Container, ImgModal, Overlay } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
 
-class Modal extends Component{
+const Modal =({currentImag, currentImageDescription,modalOnClick,modalOnDown })=>{
 
 
-
-    render() {
-        const {currentImag, currentImageDescription, toggleModal} = this.props;
-
-
-         return createPortal (
-        <Overlay  onClick={toggleModal}>
+    return createPortal (
+        <Overlay onClick={(e)=>modalOnClick(e)} onKeyDown={(e)=>modalOnDown(e)} >
             <Container>
-                <img src={currentImag} alt={currentImageDescription} />
+                <ImgModal src={currentImag} alt={currentImageDescription} />
             </Container>
         </Overlay>, modalRoot )
-    };
-}
 
+}
 export default Modal;
 

@@ -9,7 +9,7 @@ export const Overlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 1200;
 `;
 
@@ -22,6 +22,12 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 1200;
+`;
+
+export const ImgModal = styled.img`
+   
+  max-width: 1000px;
+   
 `;

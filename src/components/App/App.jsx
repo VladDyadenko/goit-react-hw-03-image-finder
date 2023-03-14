@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Hearts  } from 'react-loader-spinner'
 
 import { Container } from "./App.styled.js";
 import GetFotoPromisAPI from "GetFatch/image_api";
@@ -7,7 +8,6 @@ import Searchbar from "../Searchbar";
 import ImageGallery from "../ImageGallery";
 import Button from "../Button";
 import Modal from "../Modal";
-
 
 
 const getFotoPromisAPI = new GetFotoPromisAPI(userDataAPIPixabay);
@@ -23,9 +23,14 @@ class App extends Component {
     showModal: false,
     currentImag:'',
     currentImageDescription:'',
+    visible: false,
+
 
   }
 
+  componentDidMount() {
+    window.addEventListener('keydown', this. closeModalOnDown);
+  }
 
   componentDidUpdate(prevProps, prevState){
 
@@ -81,21 +86,42 @@ class App extends Component {
 
   }
 
-  toggleModal=()=>{
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this. closeModalOnDown);
+  }
 
-      this.state(({showModal}) =>({
-      showModal: !showModal
-    }))
+  closeModalOnClick=(e)=>{
+    const currentImgModal=e.target.nodeName;
+
+    if(currentImgModal === "IMG") return
+    else this.setState({
+      showModal: false
+    });
+     
+         
+  }
+  closeModalOnDown=(e)=>{
+    const currentImgModal=e.key;
+
+    if (currentImgModal !== "Escape") return
+     else this.setState({
+      showModal: false
+    });
+    
+      
   }
 
   clickModal=e=>{
 
     const imgModal = e.target.dataset.img;
     const imgModalAlt = e.target.alt;
-
-    console.log(imgModal, imgModalAlt)
-
-
+    
+    if(this.showModal) {
+      return
+    } else
+    this.setState({
+      showModal: true
+    })
 
     return this.setState({
       currentImageDescription: imgModalAlt,
@@ -103,8 +129,6 @@ class App extends Component {
       
     })
 
-    
-    
   }
 
 
@@ -128,21 +152,31 @@ class App extends Component {
   
 
   render() {
-      const {images, imagesOnPage, totalImages, showModal,currentImag,currentImageDescription }= this.state;
+      const {images, visible, imagesOnPage, totalImages, showModal,currentImag,currentImageDescription }= this.state;
       const newPage = this.handlBtnNewPage;
       const dataSearch = this.addSearch;
       const clickModal = this.clickModal;
-      const toggleModal = this.toggleModal
+      const modalOnClick = this.closeModalOnClick;
+      const modalOnDown = this.closeModalOnDown;
 
     return (
           <Container >
             <Searchbar onSubmit={dataSearch}/>
             {images && <ImageGallery images={images} clickModal={clickModal}/>}
             {(imagesOnPage >=12 && imagesOnPage < totalImages) && <Button handlBtnNewPage={newPage}/>}
+              {visible && <Hearts 
+                  height="80"
+                  width="80"
+                  color="#4fa94d"
+                  ariaLabel="hearts-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                />}
             {showModal && <Modal
               currentImag={currentImag}
               currentImageDescription={currentImageDescription}
-              toggleModal={toggleModal}
+              modalOnClick={modalOnClick}
+              modalOnDown={modalOnDown}
             />}
           </Container>
     );
