@@ -1,21 +1,26 @@
-import css from './ImageGallery.module.css'
-import ImageGalleryItem from 'components/ImageGalleryItem';
 
-const ImageGallery =({images})=>{
+import ImageGalleryItem from 'components/ImageGalleryItem';
+import { Fotos } from './ImageGallery.styled';
+
+const ImageGallery =({images, clickModal})=>{
+    
     
 
     return (
-    <ul className={css.gallery}>
+    <Fotos >
 
-    {images.map(({id, tags, webformatURL}) =>(
+    {images.map(({id, tags, webformatURL, largeImageURL }) =>(
 
         <ImageGalleryItem
         key={id}
         smallImag={webformatURL}
+        bigImage={largeImageURL}
         description={tags}
+        clickModal={clickModal}
+      
         ></ImageGalleryItem>
     ))}
-    </ul>)
+    </Fotos>)
 };
 
 export default ImageGallery;

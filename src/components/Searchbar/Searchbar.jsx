@@ -1,6 +1,10 @@
 import { Component } from 'react';
-import { toast } from 'react-toastify';
-import css from './Searchbar.module.css'
+
+import {FaSistrix} from "react-icons/fa";
+
+import { FormBox, FormBtn, FormElement, FormInput } from './Searchbar.styled';
+// import { toast } from 'react-toastify';
+
 
 
 class Searchbar extends Component {
@@ -21,7 +25,7 @@ class Searchbar extends Component {
         const {onSubmit} = this.props
 
         if (searchValue.trim() === '') {
-            toast.error('Enter a search term.');
+            // toast.error('Enter a search term.');
             return;
           }
 
@@ -34,17 +38,16 @@ class Searchbar extends Component {
    
 
     render(){
-
+        
 
     return (
-        <header className={css.searchbar}>
-            <form className={css.form} onSubmit={this.handleSubmit}>
-                <button type="submit" className={css.button}>
-                    <span className={css.buttonLabel}>Search</span>
-                </button>
+        <FormBox >
+            <FormElement  onSubmit={this.handleSubmit}>
+                <FormBtn type="submit" >
+                    <FaSistrix  size={20}></FaSistrix>
+                </FormBtn>
             
-                <input
-                    className={css.input}
+                <FormInput
                     type="text"
                     autoComplete="off"
                     autoFocus
@@ -53,8 +56,8 @@ class Searchbar extends Component {
                     value={this.searchValue}
 
                 />
-            </form>
-        </header>)
+            </FormElement>
+        </FormBox>)
     }
 
    

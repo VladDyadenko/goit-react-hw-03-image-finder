@@ -18,9 +18,6 @@ class GetFotoPromisAPI {
         this.key = options.key;
         this.url = options.url;
         this.lang = options.lang;
-        
-        
-
     }
 
     async axiosGallery(currentPage){
@@ -50,7 +47,7 @@ class GetFotoPromisAPI {
     };
 
     set ValueForSearch(value) {
-         this.valueForSearch = value;
+        this.valueForSearch = value;
     };
 
     incrementPage() {

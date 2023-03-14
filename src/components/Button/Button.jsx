@@ -1,8 +1,8 @@
-import css from './Button.module.css'
+    import { Btn } from "./Button.styled";
 
 const Button =({handlBtnNewPage})=>{
     return (
-        <button type='button' className={css.gallaryButton} onClick={handlBtnNewPage}>Load more</button>
+        <Btn type='button'  onClick={handlBtnNewPage}>Load more</Btn>
     )
     
 };

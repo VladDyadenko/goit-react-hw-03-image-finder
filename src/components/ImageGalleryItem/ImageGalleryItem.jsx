@@ -1,12 +1,13 @@
-import css from './ImageGalleryItem.module.css'
+import { Foto, FotoImg } from "./ImageGalleryItem.styled";
 
 
-const ImageGalleryItem =({smallImag,description })=>{
+
+const ImageGalleryItem =({smallImag,description, bigImage, clickModal })=>{
    
 return (
-    <li className={css.galleryItem}>
-     <img src={smallImag} alt={description} />
-    </li>
+    <Foto  onClick={clickModal}>
+     <FotoImg  src={smallImag} alt={description} data-img={bigImage } />
+    </Foto>
 )
     
 };
