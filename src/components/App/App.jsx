@@ -29,7 +29,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('keydown', this. closeModalOnDown);
+   
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -86,32 +86,21 @@ class App extends Component {
 
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this. closeModalOnDown);
-  }
+  
 
-  closeModalOnClick=(e)=>{
-    const currentImgModal=e.target.nodeName;
+  
 
-    if(currentImgModal === "IMG") return
-    else this.setState({
+  closeModal=(e)=>{
+
+
+
+    this.setState(() =>({
       showModal: false
-    });
-     
-         
-  }
-  closeModalOnDown=(e)=>{
-    const currentImgModal=e.key;
+    }))
 
-    if (currentImgModal !== "Escape") return
-     else this.setState({
-      showModal: false
-    });
-    
-      
   }
 
-  clickModal=e=>{
+  openModal=e=>{
 
     const imgModal = e.target.dataset.img;
     const imgModalAlt = e.target.alt;
@@ -155,14 +144,14 @@ class App extends Component {
       const {images, visible, imagesOnPage, totalImages, showModal,currentImag,currentImageDescription }= this.state;
       const newPage = this.handlBtnNewPage;
       const dataSearch = this.addSearch;
-      const clickModal = this.clickModal;
-      const modalOnClick = this.closeModalOnClick;
-      const modalOnDown = this.closeModalOnDown;
+      const openModal = this.openModal;
+      
+      
 
     return (
           <Container >
             <Searchbar onSubmit={dataSearch}/>
-            {images && <ImageGallery images={images} clickModal={clickModal}/>}
+            {images && <ImageGallery images={images} openModal={openModal}/>}
             {(imagesOnPage >=12 && imagesOnPage < totalImages) && <Button handlBtnNewPage={newPage}/>}
               {visible && <Hearts 
                   height="80"
@@ -175,8 +164,7 @@ class App extends Component {
             {showModal && <Modal
               currentImag={currentImag}
               currentImageDescription={currentImageDescription}
-              modalOnClick={modalOnClick}
-              modalOnDown={modalOnDown}
+             onClose={this.closeModal}
             />}
           </Container>
     );

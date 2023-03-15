@@ -2,7 +2,7 @@
 import ImageGalleryItem from 'components/ImageGalleryItem';
 import { Fotos } from './ImageGallery.styled';
 
-const ImageGallery =({images, clickModal})=>{
+const ImageGallery =({images, openModal})=>{
     
     
 
@@ -16,7 +16,7 @@ const ImageGallery =({images, clickModal})=>{
         smallImag={webformatURL}
         bigImage={largeImageURL}
         description={tags}
-        clickModal={clickModal}
+        openModal={openModal}
       
         ></ImageGalleryItem>
     ))}

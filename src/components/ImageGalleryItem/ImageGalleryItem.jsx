@@ -2,10 +2,10 @@ import { Foto, FotoImg } from "./ImageGalleryItem.styled";
 
 
 
-const ImageGalleryItem =({smallImag,description, bigImage, clickModal })=>{
+const ImageGalleryItem =({smallImag,description, bigImage, openModal })=>{
    
 return (
-    <Foto  onClick={clickModal}>
+    <Foto  onClick={openModal}>
      <FotoImg  src={smallImag} alt={description} data-img={bigImage } />
     </Foto>
 )
