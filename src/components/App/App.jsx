@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Hearts  } from 'react-loader-spinner'
+import { BallTriangle } from 'react-loader-spinner'
 
 import { Container } from "./App.styled.js";
 import GetFotoPromisAPI from "GetFatch/image_api";
@@ -8,6 +8,7 @@ import Searchbar from "../Searchbar";
 import ImageGallery from "../ImageGallery";
 import Button from "../Button";
 import Modal from "../Modal";
+// import Circles from "components/Loader/index.js";
 
 
 const getFotoPromisAPI = new GetFotoPromisAPI(userDataAPIPixabay);
@@ -45,6 +46,9 @@ class App extends Component {
 
     if(prevState.valueForSearch !== valueForSearch) {
 
+      
+      this.setState(({visible: true}));
+
       getFotoPromisAPI
       .axiosGallery()
       .then(({hits, totalHits}) =>{
@@ -57,14 +61,16 @@ class App extends Component {
         })
         
       })
-      .catch(error => this.setState({ error }));
-             
-        
+      .catch(error => this.setState({ error }))
+      .finally(()=> this.setState(({visible: false})) );
+                     
     };
     
   
 
     if(prevState.page !== page && page !== 1){
+
+      this.setState(({visible: true}));
 
       getFotoPromisAPI
       .axiosGallery(page)
@@ -79,20 +85,15 @@ class App extends Component {
         })
         
       })
-      .catch(error => this.setState({ error }));
+      .catch(error => this.setState({ error }))
+      .finally(()=> this.setState(({visible: false})) );
 
     };
      
 
   }
 
-  
-
-  
-
-  closeModal=(e)=>{
-
-
+  closeModal= (e) =>{
 
     this.setState(() =>({
       showModal: false
@@ -100,7 +101,7 @@ class App extends Component {
 
   }
 
-  openModal=e=>{
+  openModal= (e) =>{
 
     const imgModal = e.target.dataset.img;
     const imgModalAlt = e.target.alt;
@@ -136,7 +137,6 @@ class App extends Component {
     this.setState({valueForSearch});
     getFotoPromisAPI.resetPage();
 
-
   }
   
 
@@ -146,21 +146,13 @@ class App extends Component {
       const dataSearch = this.addSearch;
       const openModal = this.openModal;
       
-      
 
     return (
           <Container >
             <Searchbar onSubmit={dataSearch}/>
             {images && <ImageGallery images={images} openModal={openModal}/>}
+            {visible && <BallTriangle wrapperClass="loader" radius={5} ariaLabel="ball-triangle-loading"/>}
             {(imagesOnPage >=12 && imagesOnPage < totalImages) && <Button handlBtnNewPage={newPage}/>}
-              {visible && <Hearts 
-                  height="80"
-                  width="80"
-                  color="#4fa94d"
-                  ariaLabel="hearts-loading"
-                  wrapperStyle={{}}
-                  wrapperClass=""
-                />}
             {showModal && <Modal
               currentImag={currentImag}
               currentImageDescription={currentImageDescription}
