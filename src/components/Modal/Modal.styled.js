@@ -10,7 +10,6 @@ export const Overlay = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.7);
-  
 `;
 
 export const Container = styled.div`
@@ -23,11 +22,8 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.7);
-  
 `;
 
 export const ImgModal = styled.img`
-   
   max-width: 1000px;
-   
 `;

@@ -1,66 +1,56 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import {FaSistrix} from "react-icons/fa";
+import { FaSistrix } from 'react-icons/fa';
 
 import { FormBox, FormBtn, FormElement, FormInput } from './Searchbar.styled';
-// import { toast } from 'react-toastify';
-
-
 
 class Searchbar extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
 
-    state={
-        searchValue: '',
+  state = {
+    searchValue: '',
+  };
+
+  handlInputChange = e => {
+    this.setState({ searchValue: e.currentTarget.value });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+
+    const { searchValue } = this.state;
+    const { onSubmit } = this.props;
+
+    if (searchValue.trim() === '') {
+      return;
     }
 
-    handlInputChange = (e)=>{
-       
-        this.setState({searchValue: e.currentTarget.value})
-    }
+    onSubmit(searchValue);
+  };
 
-    handleSubmit = (e)=>{
-        e.preventDefault();
-
-        const {searchValue} = this.state
-        const {onSubmit} = this.props
-
-        if (searchValue.trim() === '') {
-            // toast.error('Enter a search term.');
-            return;
-          }
-
-        onSubmit(searchValue);
-
-      
-
-    }
-
-   
-
-    render(){
-        
-
+  render() {
     return (
-        <FormBox >
-            <FormElement  onSubmit={this.handleSubmit}>
-                <FormBtn type="submit" >
-                    <FaSistrix  size={20}></FaSistrix>
-                </FormBtn>
-            
-                <FormInput
-                    type="text"
-                    autoComplete="off"
-                    autoFocus
-                    placeholder="Search images and photos"
-                    onChange={this.handlInputChange}
-                    value={this.searchValue}
+      <FormBox>
+        <FormElement onSubmit={this.handleSubmit}>
+          <FormBtn type="submit">
+            <FaSistrix size={20}></FaSistrix>
+          </FormBtn>
 
-                />
-            </FormElement>
-        </FormBox>)
-    }
-
-   
-};
+          <FormInput
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            onChange={this.handlInputChange}
+            value={this.searchValue}
+          />
+        </FormElement>
+      </FormBox>
+    );
+  }
+}
 
 export default Searchbar;

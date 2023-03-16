@@ -1,5 +1,3 @@
-
-
 html {
   box-sizing: border-box;
   width: 100vw;
@@ -27,11 +25,10 @@ img {
   max-width: 100%;
   height: auto;
 }
-.loader{
+.loader {
   margin-right: auto;
   margin-left: auto;
   height: 100px;
   width: 100px;
   color: #4fa94d;
-
-  }
+}

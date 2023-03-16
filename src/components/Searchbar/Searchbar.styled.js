@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const FormBox = styled.header`
- top: 0;
+  top: 0;
   left: 0;
   position: sticky;
   z-index: 1100;
@@ -20,7 +20,7 @@ export const FormBox = styled.header`
 `;
 
 export const FormElement = styled.form`
-   display: flex;
+  display: flex;
   align-items: center;
   width: 100%;
   max-width: 600px;
@@ -48,9 +48,8 @@ export const FormBtn = styled.button`
   }
 `;
 
-
 export const FormInput = styled.input`
-   display: inline-block;
+  display: inline-block;
   width: 100%;
   font: inherit;
   font-size: 20px;
@@ -59,8 +58,8 @@ export const FormInput = styled.input`
   padding-left: 4px;
   padding-right: 4px;
 
-  &::placeholder{
+  &::placeholder {
     font: inherit;
-  font-size: 18px;
+    font-size: 18px;
   }
 `;
