@@ -65,7 +65,6 @@ class App extends Component {
         })
         .catch(error => this.setState({ error }))
         .finally(() => this.setState({ visible: false }));
-      scrollSmoothFoto(page);
     }
   }
 
