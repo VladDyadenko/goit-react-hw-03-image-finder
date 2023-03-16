@@ -138,16 +138,4 @@ class App extends Component {
   }
 }
 
-function scrollSmoothFoto(data) {
-  if (data > 1) {
-    const { height: cardHeight } = document
-      .querySelector('div')
-      .firstElementChild.getBoundingClientRect();
-
-    window.scrollBy({
-      top: cardHeight + 420,
-      behavior: 'smooth',
-    });
-  }
-}
 export default App;
