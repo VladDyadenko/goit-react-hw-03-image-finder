@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
 
 import { FaSistrix } from 'react-icons/fa';
 
@@ -25,6 +26,7 @@ class Searchbar extends Component {
     const { onSubmit } = this.props;
 
     if (searchValue.trim() === '') {
+      toast.error('Enter data to search!');
       return;
     }
 

@@ -1,4 +1,6 @@
 import { Component } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { Container } from './App.styled.js';
 import GetFotoPromisAPI from 'GetFatch/image_api';
@@ -39,6 +41,10 @@ class App extends Component {
       getFotoPromisAPI
         .axiosGallery()
         .then(({ hits, totalHits }) => {
+          if (hits.length === 0) {
+            toast.warn('No photos to show!');
+          }
+          toast.success(`Found ${totalHits} fhotos`);
           return this.setState({
             images: hits,
             totalImages: totalHits,
@@ -132,6 +138,18 @@ class App extends Component {
             onClose={closeModal}
           />
         )}
+        <ToastContainer
+          position="top-right"
+          autoClose={1500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </Container>
     );
   }
