@@ -44,13 +44,16 @@ class App extends Component {
           if (hits.length === 0) {
             toast.warn('No photos to show!');
           }
-          toast.success(`Found ${totalHits} fhotos`);
-          return this.setState({
-            images: hits,
-            totalImages: totalHits,
-            imagesOnPage: hits.length,
-            page: 1,
-          });
+
+          return (
+            this.setState({
+              images: hits,
+              totalImages: totalHits,
+              imagesOnPage: hits.length,
+              page: 1,
+            }),
+            toast.success(`Found ${totalHits} fhotos`)
+          );
         })
         .catch(error => this.setState({ error }))
         .finally(() => this.setState({ visible: false }));
