@@ -10,6 +10,7 @@ import ImageGallery from '../ImageGallery';
 import Button from '../Button';
 import Modal from '../Modal';
 import Loader from '../Loader';
+import ErrorCard from '../ErrorCard';
 
 const getFotoPromisAPI = new GetFotoPromisAPI(userDataAPIPixabay);
 
@@ -24,6 +25,8 @@ class App extends Component {
     currentImag: '',
     currentImageDescription: '',
     visible: false,
+    status: 'idle',
+    error: null,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -40,7 +43,9 @@ class App extends Component {
 
       getFotoPromisAPI
         .axiosGallery()
-        .then(({ hits, totalHits }) => {
+        .then(data => {
+          const { hits, totalHits } = data;
+
           if (hits.length === 0) {
             toast.warn('No photos to show!');
           }
@@ -55,7 +60,10 @@ class App extends Component {
             toast.success(`Found ${totalHits} fhotos`)
           );
         })
-        .catch(error => this.setState({ error }))
+        .catch(error => {
+          if (error.response || error.request) this.setState({ error });
+          else this.setState({ error });
+        })
         .finally(() => this.setState({ visible: false }));
     }
 
@@ -72,7 +80,10 @@ class App extends Component {
             };
           });
         })
-        .catch(error => this.setState({ error }))
+        .catch(error => {
+          if (error.response || error.request) this.setState({ error });
+          else this.setState({ error });
+        })
         .finally(() => this.setState({ visible: false }));
     }
   }
@@ -120,7 +131,9 @@ class App extends Component {
       showModal,
       currentImag,
       currentImageDescription,
+      error,
     } = this.state;
+
     const newPage = this.handlBtnNewPage;
     const dataSearch = this.addSearch;
     const openModal = this.openModal;
@@ -129,6 +142,7 @@ class App extends Component {
     return (
       <Container>
         <Searchbar onSubmit={dataSearch} />
+        {error && <ErrorCard error={error} />}
         {images && <ImageGallery images={images} openModal={openModal} />}
         {visible && <Loader />}
         {imagesOnPage >= 12 && imagesOnPage < totalImages && (
@@ -141,21 +155,12 @@ class App extends Component {
             onClose={closeModal}
           />
         )}
-        <ToastContainer
-          position="top-right"
-          autoClose={1500}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
+        <ToastContainer autoClose={1500} />
       </Container>
     );
   }
 }
 
 export default App;
+
+// status{'idle', 'pending', 'rejected', 'resolved'}
